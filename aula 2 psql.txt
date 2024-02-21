@@ -1,0 +1,119 @@
+postgres=# \c
+You are now connected to database "postgres" as user "postgres".
+postgres=# \c bd_sistema_bancario
+You are now connected to database "bd_sistema_bancario" as user "postgres".
+bd_sistema_bancario=# CREATE TABLE users (
+bd_sistema_bancario(#     user_id SERIAL PRIMARY KEY,
+bd_sistema_bancario(#     username VARCHAR(50) UNIQUE NOT NULL,
+bd_sistema_bancario(#     email VARCHAR(100) UNIQUE NOT NULL,
+bd_sistema_bancario(#     password_hash VARCHAR(100) NOT NULL,
+bd_sistema_bancario(#     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+bd_sistema_bancario(# );
+CREATE TABLE
+bd_sistema_bancario=# CREATE TABLE products (
+bd_sistema_bancario(#     product_id SERIAL PRIMARY KEY,
+bd_sistema_bancario(#     name VARCHAR(100) NOT NULL,
+bd_sistema_bancario(#     description TEXT,
+bd_sistema_bancario(#     price NUMERIC(10, 2) NOT NULL,
+bd_sistema_bancario(#     stock_quantity INT NOT NULL,
+bd_sistema_bancario(#     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+bd_sistema_bancario(# );
+CREATE TABLE
+bd_sistema_bancario=# CREATE TABLE orders (
+bd_sistema_bancario(#     order_id SERIAL PRIMARY KEY,
+bd_sistema_bancario(#     user_id INT REFERENCES users(user_id),
+bd_sistema_bancario(#     order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+bd_sistema_bancario(#     total_amount NUMERIC(10, 2) NOT NULL,
+bd_sistema_bancario(#     status VARCHAR(20) NOT NULL
+bd_sistema_bancario(# );
+CREATE TABLE
+bd_sistema_bancario=# CREATE TABLE order_items (
+bd_sistema_bancario(#     order_item_id SERIAL PRIMARY KEY,
+bd_sistema_bancario(#     order_id INT REFERENCES orders(order_id),
+bd_sistema_bancario(#     product_id INT REFERENCES products(product_id),
+bd_sistema_bancario(#     quantity INT NOT NULL,
+bd_sistema_bancario(#     price_per_unit NUMERIC(10, 2) NOT NULL
+bd_sistema_bancario(# );
+CREATE TABLE
+bd_sistema_bancario=# CREATE TABLE comments (
+bd_sistema_bancario(#     comment_id SERIAL PRIMARY KEY,
+bd_sistema_bancario(#     user_id INT REFERENCES users(user_id),
+bd_sistema_bancario(#     product_id INT REFERENCES products(product_id),
+bd_sistema_bancario(#     comment TEXT NOT NULL,
+bd_sistema_bancario(#     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+bd_sistema_bancario(# );
+CREATE TABLE
+bd_sistema_bancario=# \dt
+            List of relations
+ Schema |    Name     | Type  |  Owner
+--------+-------------+-------+----------
+ public | comments    | table | postgres
+ public | order_items | table | postgres
+ public | orders      | table | postgres
+ public | products    | table | postgres
+ public | users       | table | postgres
+(5 rows)
+
+
+bd_sistema_bancario=# CREATE TABLE cliente(
+bd_sistema_bancario(#   NOME_CLIENTE varchar,
+bd_sistema_bancario(#   CIDADE_CLIENTE varchar,
+bd_sistema_bancario(#   ENDERCO_CLIENTE varchar);
+CREATE TABLE
+bd_sistema_bancario=# \dt
+            List of relations
+ Schema |    Name     | Type  |  Owner
+--------+-------------+-------+----------
+ public | cliente     | table | postgres
+ public | comments    | table | postgres
+ public | order_items | table | postgres
+ public | orders      | table | postgres
+ public | products    | table | postgres
+ public | users       | table | postgres
+(6 rows)
+
+
+bd_sistema_bancario=# CREATE TABLE conta(
+bd_sistema_bancario(#   NUMERO_CONTA int,
+bd_sistema_bancario(#   NOME_AGENCIA varchar,
+bd_sistema_bancario(#   SALDO float);
+CREATE TABLE
+bd_sistema_bancario=# \dt
+            List of relations
+ Schema |    Name     | Type  |  Owner
+--------+-------------+-------+----------
+ public | cliente     | table | postgres
+ public | comments    | table | postgres
+ public | conta       | table | postgres
+ public | order_items | table | postgres
+ public | orders      | table | postgres
+ public | products    | table | postgres
+ public | users       | table | postgres
+(7 rows)
+
+
+bd_sistema_bancario=# CREATE TABLE emprestimo(
+bd_sistema_bancario(# NUMERO_EMPRESTIMO int,
+bd_sistema_bancario(# NOME_AGENCIA varchar,
+bd_sistema_bancario(# VALOR float);
+CREATE TABLE
+bd_sistema_bancario=# CREATE TABLE agencia(
+bd_sistema_bancario(# NOME_AGENCIA varchar,
+bd_sistema_bancario(# CIDADE_AGENCIA varchar,
+bd_sistema_bancario(# DEPOSITOS float);
+CREATE TABLE
+bd_sistema_bancario=#
+bd_sistema_bancario=# \dt
+            List of relations
+ Schema |    Name     | Type  |  Owner
+--------+-------------+-------+----------
+ public | agencia     | table | postgres
+ public | cliente     | table | postgres
+ public | comments    | table | postgres
+ public | conta       | table | postgres
+ public | emprestimo  | table | postgres
+ public | order_items | table | postgres
+ public | orders      | table | postgres
+ public | products    | table | postgres
+ public | users       | table | postgres
+(9 rows)
