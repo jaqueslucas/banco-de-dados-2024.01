@@ -117,3 +117,6 @@ bd_sistema_bancario=# \dt
  public | products    | table | postgres
  public | users       | table | postgres
 (9 rows)
+
+create schema lucas;
+CREATE SCHEMA
