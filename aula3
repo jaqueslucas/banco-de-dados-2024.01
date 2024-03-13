@@ -1,0 +1,32 @@
+postgres=# CREATE DATABASE bd_aula03;
+CREATE DATABASE
+postgres=# \c bd_aula03 ;
+Agora você está conectado ao banco de dados "bd_aula03" como usuário "postgres".
+bd_aula03=# CREATE DOMAIN CPF AS INTEGER;
+CREATE DOMAIN
+bd_aula03=# CREATE TABLE tbl_cliente (
+    codigo_cliente INTEGER PRIMARY KEY,
+    cpf INTEGER UNIQUE NOT NULL CHECK (cpf > 0)
+);
+CREATE TABLE
+bd_aula03=# CREATE TABLE Cliente (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100),
+    email VARCHAR(100),
+    cpf CPF UNIQUE NOT NULL
+);
+CREATE TABLE
+bd_aula03=# CREATE TABLE Produto (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100),
+    preco NUMERIC(10,2)
+);
+CREATE TABLE
+bd_aula03=# CREATE TABLE Pedido (
+    id SERIAL PRIMARY KEY,
+    data_pedido DATE,
+    id_cliente INT REFERENCES Cliente(id),
+    id_produto INT REFERENCES Produto(id),
+    quantidade INT
+);
+CREATE TABLE
